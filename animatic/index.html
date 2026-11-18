@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Тема Флекс - аниматик главной</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../media/mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,200..800&family=Onest:wght@300;400;500;600&display=swap">
+<style>
+:root{--bg:#f5eee5;--ink:#1d1a17;--muted:#6d645b;--line:rgba(29,26,23,.12);--or:#ee7d1c;--teal:#1f5f5c;--glass:rgba(250,246,241,.62);
+  --f-d:"Roboto Flex",system-ui,sans-serif;--f-b:"Onest",system-ui,sans-serif;--pad:clamp(16px,4vw,64px)}
+*{box-sizing:border-box}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 var(--f-b);-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;font-family:var(--f-d);font-weight:500;letter-spacing:-.02em;line-height:1}
+p{margin:0}
+a{color:inherit}
+.nav{position:fixed;inset:0 0 auto;z-index:50;display:flex;align-items:center;gap:20px;padding:14px var(--pad);background:var(--glass);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);box-shadow:0 1px 0 var(--line)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:600 18px var(--f-d);font-variation-settings:"wdth" 82}
+.logo img{width:28px;height:28px}
+.tag{margin-left:auto;font-size:13px;color:var(--muted)}
+.tag b{color:var(--or);font-weight:500}
+
+.story{position:relative}
+.stage{position:sticky;top:0;height:100svh;overflow:hidden}
+#cv{position:absolute;inset:0;width:100%;height:100%}
+.copy{position:absolute;left:var(--pad);top:54%;transform:translateY(-50%);width:min(40vw,560px);z-index:2}
+.scene{position:absolute;inset:0 auto auto 0;width:100%;opacity:0;visibility:hidden;transform:translateY(-50%)}
+.scene.on{visibility:visible}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--or);font-weight:500;margin-bottom:16px}
+.h{font-size:clamp(34px,min(4.6vw,9svh),72px);font-weight:400;line-height:1.02;font-variation-settings:"opsz" 120;text-wrap:balance}
+.shrink{font-size:clamp(44px,min(7.4vw,13svh),136px);font-weight:500;line-height:.9;letter-spacing:-.035em}
+.shrink span{display:block;white-space:nowrap;font-variation-settings:"wdth" var(--w,151),"opsz" 144}
+.lead{margin-top:22px;color:var(--muted);max-width:440px;font-size:clamp(15px,1.15vw,18px)}
+.btns{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.btn{text-decoration:none;padding:12px 20px;border-radius:999px;font-size:15px;font-weight:500;background:var(--ink);color:#fff}
+.btn.ghost{background:none;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.inks{display:flex;gap:10px;margin-top:24px}
+.inks i{width:34px;height:34px;border-radius:50%;background:var(--c);opacity:.14;transform:scale(.8);transition:opacity .25s,transform .25s;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.inks i.lit{opacity:1;transform:scale(1)}
+.count{font:500 clamp(64px,9vw,140px)/.9 var(--f-d);font-variation-settings:"wdth" 70;color:var(--or)}
+.facts{margin-top:22px;display:grid;gap:10px}
+.facts div{display:flex;gap:14px;align-items:baseline;font-size:16px}
+.facts b{font:500 22px var(--f-d);min-width:72px}
+.gauge{margin-top:26px;width:min(320px,100%);height:3px;background:var(--line);border-radius:3px;overflow:hidden}
+.gauge i{display:block;height:100%;width:0;background:var(--or)}
+.note{margin-top:18px;font-size:13px;color:var(--muted);border-left:2px solid var(--or);padding-left:12px;max-width:420px}
+.dots{display:flex;gap:8px;margin-bottom:22px}
+.dots i{width:22px;height:3px;border-radius:2px;background:var(--line)}
+.dots i.lit{background:var(--or)}
+.years{display:grid;gap:12px;margin-top:20px}
+.years div{display:flex;gap:16px;align-items:baseline;opacity:.15;transition:opacity .3s}
+.years div.lit{opacity:1}
+.years b{font:500 30px var(--f-d);color:var(--or);min-width:80px}
+.terms{display:grid;gap:18px;margin-top:20px}
+.terms p{font:400 clamp(20px,1.8vw,28px)/1.2 var(--f-d)}
+
+.hud{position:fixed;right:var(--pad);bottom:18px;z-index:40;font-size:12px;color:var(--muted);background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:7px 12px;border-radius:999px;box-shadow:0 0 0 1px var(--line);font-variant-numeric:tabular-nums}
+.bar{position:fixed;left:0;top:0;height:2px;background:var(--or);z-index:60;width:0}
+
+.form-wrap{position:relative;padding:18svh var(--pad) 14svh;display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:start}
+.form-wrap .shrink{font-size:clamp(40px,min(6vw,11svh),110px)}
+form{position:relative;display:grid;gap:14px;padding:28px;border-radius:22px;background:rgba(255,255,255,.5);box-shadow:0 0 0 1px var(--line);overflow:hidden}
+label{display:grid;gap:6px;font-size:13px;color:var(--muted)}
+input,textarea{font:inherit;color:var(--ink);border:0;border-bottom:1px solid var(--line);background:none;padding:8px 0;outline:none}
+textarea{resize:vertical;min-height:70px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{display:block}
+.chips input{display:none}
+.chips span{display:inline-block;padding:7px 12px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line);font-size:13px;color:var(--ink);cursor:pointer}
+.chips input:checked+span{background:var(--ink);color:#fff}
+form button{justify-self:start;border:0;cursor:pointer}
+.wrap{position:absolute;inset:-8%;pointer-events:none;opacity:0;
+  background:repeating-linear-gradient(90deg,#ee7d1c 0 60px,#1f5f5c 60px 120px,#fad214 120px 170px,#faf8f4 170px 210px);
+  border-radius:40px;transform:scaleX(1.25) scaleY(1.15);transition:transform .9s cubic-bezier(.2,.8,.2,1),opacity .3s,inset .9s,border-radius .9s}
+form.sent .wrap{opacity:1;inset:0;border-radius:22px;transform:none}
+.ok{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(80%,360px);text-align:center;font:500 22px/1.25 var(--f-d);color:var(--ink);background:#faf8f4;border-radius:16px;padding:22px;opacity:0;transition:opacity .4s .7s;box-shadow:0 10px 40px rgba(0,0,0,.15)}
+.ok small{display:block;margin-top:8px;font:400 13px var(--f-b);color:var(--muted)}
+form.sent .ok{opacity:1}
+footer{padding:30px var(--pad);font-size:13px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+@media (max-width:860px){
+  .copy{top:auto;bottom:max(70px,9svh);transform:none;width:auto;right:var(--pad)}
+  .scene{transform:translateY(0);top:auto;bottom:0}
+  .h{font-size:clamp(28px,8vw,40px)}
+  .shrink{font-size:clamp(40px,12vw,60px)}
+  .lead,.note{display:none}
+  .stage::after{content:"";position:absolute;inset:auto 0 0;height:58%;background:linear-gradient(to top,var(--bg) 52%,rgba(245,238,229,0));z-index:1;pointer-events:none}
+  .form-wrap{grid-template-columns:1fr}
+  .tag{display:none}
+}
+@media (prefers-reduced-motion:reduce){.wrap,.ok{transition:none}}
+</style>
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<header class="nav">
+  <a class="logo" href="../"><img src="../media/mark.png" alt="">Тема Флекс</a>
+  <span class="tag"><b>Аниматик</b> - серый черновик главной: тайминг и камера, без финальной графики</span>
+</header>
+
+<main>
+<section class="story" id="story">
+  <div class="stage">
+    <canvas id="cv" aria-hidden="true"></canvas>
+    <div class="copy">
+      <div class="scene" data-s="0">
+        <div class="eyebrow">Термоусадочная этикетка и упаковка</div>
+        <h1 class="shrink" id="h1"><span>Садится</span><span>точно</span><span>по форме</span></h1>
+        <p class="lead">Печатаем плёнку, склеиваем в рукав и выдаём готовую этикетку под вашу тару. Производство в Алматы.</p>
+        <div class="btns"><a class="btn" href="#form">Оставить заявку</a><a class="btn ghost" href="#story" id="go">Смотреть, как это делается</a></div>
+      </div>
+      <div class="scene" data-s="1">
+        <div class="eyebrow">Шаг 1 из 4 - печать</div>
+        <div class="count" id="cnt">1</div>
+        <h2 class="h">Печать в 6 красок и более</h2>
+        <div class="inks" id="inks"><i style="--c:#faf8f4"></i><i style="--c:#00a0d2"></i><i style="--c:#d71e78"></i><i style="--c:#fad214"></i><i style="--c:#232326"></i><i style="--c:#ee7d1c"></i></div>
+      </div>
+      <div class="scene" data-s="2">
+        <div class="eyebrow" id="s2e">Шаг 2 из 4 - склейка в рукав</div>
+        <h2 class="h" id="s2h">Лента сворачивается в рукав</h2>
+        <p class="lead" id="s2p">Края сходятся, шов склеивается по всей длине.</p>
+      </div>
+      <div class="scene" data-s="3">
+        <div class="eyebrow">Усадка</div>
+        <h2 class="h">Садится точно по форме</h2>
+        <div class="gauge"><i id="gfill"></i></div>
+        <div class="facts"><div><b>PVC</b>усадка 50-53 %</div><div><b>PET</b>усадка 70-75 %</div></div>
+        <p class="note">Если широкая часть тары больше узкой более чем в 2 раза - нужен PET. Здесь на паузе появится подбор плёнки ползунком (отдельным слоем, кадр не меняется).</p>
+      </div>
+      <div class="scene" data-s="4">
+        <div class="dots" id="pdots"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="eyebrow" id="pn">1 / 6</div>
+        <h2 class="h" id="pt">Термоусадочная этикетка</h2>
+        <p class="lead" id="pf">PVC и PET, печать в 6 красок и более.</p>
+      </div>
+      <div class="scene" data-s="5">
+        <div class="eyebrow">Шаг 4 из 4 - выдача</div>
+        <h2 class="h">Три формы выдачи</h2>
+        <div class="facts"><div><b>01</b>в рулоне</div><div><b>02</b>в рулоне в рукав</div><div><b>03</b>поштучно</div></div>
+      </div>
+      <div class="scene" data-s="6">
+        <div class="eyebrow">История</div>
+        <h2 class="h">Годовые кольца</h2>
+        <div class="years" id="yrs">
+          <div><b>2000</b>ТОО «Тема LTD»</div>
+          <div><b>2015</b>переименование в «Тема Флекс»</div>
+          <div><b>2019-2020</b>платинка и стаканы в слив-этикетке</div>
+          <div><b>2020</b>кашированная фольга</div>
+        </div>
+      </div>
+      <div class="scene" data-s="7">
+        <div class="eyebrow">Условия</div>
+        <div class="terms"><p>Свой склад материалов</p><p>Оплата - от 50 % предоплаты до отсрочки</p><p>Образцы колпачков по запросу</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="form-wrap" id="form">
+  <div>
+    <div class="eyebrow">Заявка</div>
+    <h2 class="shrink" id="h2c"><span>Расскажите</span><span>про вашу</span><span>тару</span></h2>
+  </div>
+  <form id="f" novalidate>
+    <label>Компания<input name="c" autocomplete="organization"></label>
+    <label>Телефон или почта<input name="p" autocomplete="tel"></label>
+    <div class="chips">
+      <label><input type="checkbox"><span>Этикетка</span></label><label><input type="checkbox"><span>Колпачки</span></label>
+      <label><input type="checkbox"><span>Стаканы</span></label><label><input type="checkbox"><span>Платинка</span></label>
+      <label><input type="checkbox"><span>Фольга</span></label><label><input type="checkbox"><span>Групповая</span></label>
+    </div>
+    <label>Комментарий<textarea name="m"></textarea></label>
+    <button class="btn" type="submit">Отправить</button>
+    <div class="wrap"></div>
+    <div class="ok">Заявка принята<small>Это макет: форма никуда не отправляет.</small></div>
+  </form>
+</section>
+<footer><span>ТОО «Тема Флекс», Алматы</span><span>Аниматик концепта, 18.11.2026</span></footer>
+</main>
+<div class="hud" id="hud"></div>
+
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(() => {
+  const N = 630;
+  // сцена: [название, длина vh, кадр от, кадр до]
+  const S = [
+    ["Рулон", 100, 1, 40], ["Шесть красок", 250, 41, 130], ["Рукав", 200, 131, 212],
+    ["Усадка", 300, 213, 320], ["Шесть упаковок", 600, 321, 500], ["Выдача", 200, 501, 550],
+    ["Годы", 200, 551, 610], ["Условия", 100, 611, 630]
+  ];
+  const PROD = [
+    ["Термоусадочная этикетка", "PVC и PET, печать в 6 красок и более.", 321, 350],
+    ["Колпачки", "ПВХ 30-40 мкм, открытый и закрытый верх. Образцы по запросу.", 351, 380],
+    ["Стаканы в слив-этикетке", "Рукав садится на конус стакана.", 381, 410],
+    ["Платинка", "Ø 69 и 95 мм, тиснение «апельсин» и «иголочки», термолак для PP и PS.", 411, 440],
+    ["Кашированная фольга", "3-4 слоя, буфлен.", 441, 472],
+    ["Групповая упаковка", "Плёнка обтягивает набор тары.", 473, 500]
+  ];
+  const story = document.getElementById("story");
+  const total = S.reduce((a, s) => a + s[1], 0);
+  story.style.height = (total + 100) + "svh";
+
+  const cv = document.getElementById("cv"), ctx = cv.getContext("2d");
+  const imgs = new Array(N + 1);
+  const src = i => "frames/f" + String(i).padStart(4, "0") + ".jpg";
+  // загрузка: сначала каждый 8-й кадр, затем остальные
+  const order = [];
+  for (let st of [8, 4, 2, 1]) for (let i = 1; i <= N; i += st) if (!order.includes(i)) order.push(i);
+  let q = 0;
+  const pump = () => {
+    while (q < order.length && inflight < 8) {
+      const i = order[q++]; const im = new Image(); inflight++;
+      im.onload = () => { imgs[i] = im; inflight--; if (Math.abs(i - cur) < 10) draw(); pump(); };
+      im.onerror = () => { inflight--; pump(); };
+      im.src = src(i);
+    }
+  };
+  let inflight = 0, cur = 1;
+  const mobile = () => innerWidth <= 860;
+  function size() {
+    const d = Math.min(devicePixelRatio || 1, 2);
+    cv.width = innerWidth * d; cv.height = innerHeight * d; draw();
+  }
+  function nearest(f) {
+    for (let k = 0; k < 40; k++) { if (imgs[f - k]) return imgs[f - k]; if (imgs[f + k]) return imgs[f + k]; }
+    return null;
+  }
+  function draw() {
+    const im = nearest(cur); if (!im) return;
+    const W = cv.width, H = cv.height, iw = im.naturalWidth, ih = im.naturalHeight;
+    ctx.fillStyle = "#f5eee5"; ctx.fillRect(0, 0, W, H);
+    let sc, x, y;
+    if (mobile()) { // кадр по высоте верхней части, объект в центре
+      sc = (H * 0.62) / ih; x = W / 2 - iw * sc * 0.62; y = H * 0.02;
+    } else {
+      if (W / H > iw / ih) { sc = H / ih; x = W - iw * sc; y = 0; } // широкий экран: по высоте, к правому краю
+      else { sc = W / iw * 1.08; x = W - iw * sc; y = (H - ih * sc) / 2; }
+    }
+    ctx.drawImage(im, x, y, iw * sc, ih * sc);
+    if (!mobile()) { // кадр не заходит на колонку текста: левый край растворяется в фоне
+      const g = ctx.createLinearGradient(W * 0.34, 0, W * 0.52, 0);
+      g.addColorStop(0, "rgba(245,238,229,1)"); g.addColorStop(1, "rgba(245,238,229,0)");
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W * 0.52, H);
+      ctx.fillStyle = "#f5eee5"; ctx.fillRect(0, 0, W * 0.34, H);
+    }
+  }
+
+  const scenes = [...document.querySelectorAll(".scene")];
+  const hud = document.getElementById("hud"), bar = document.getElementById("bar");
+  const h1 = [...document.querySelectorAll("#h1 span")], h2c = [...document.querySelectorAll("#h2c span")];
+  const inks = [...document.querySelectorAll("#inks i")], cnt = document.getElementById("cnt");
+  const gfill = document.getElementById("gfill"), yrs = [...document.querySelectorAll("#yrs div")];
+  const pdots = [...document.querySelectorAll("#pdots i")];
+  const pn = document.getElementById("pn"), pt = document.getElementById("pt"), pf = document.getElementById("pf");
+  const s2e = document.getElementById("s2e"), s2h = document.getElementById("s2h"), s2p = document.getElementById("s2p");
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const fade = (p, first) => first ? clamp((1 - p) / 0.15) : Math.min(clamp(p / 0.12), clamp((1 - p) / 0.12));
+  let lastProd = -1;
+
+  function update() {
+    const vh = innerHeight / 100;
+    const y = clamp(-story.getBoundingClientRect().top / vh, 0, total);
+    let acc = 0, si = 0, p = 0;
+    for (let i = 0; i < S.length; i++) { if (y <= acc + S[i][1] || i === S.length - 1) { si = i; p = clamp((y - acc) / S[i][1]); break; } acc += S[i][1]; }
+    const [name, , f0, f1] = S[si];
+    // сцена 0: петля рулона без прокрутки — ведём время, при прокрутке — кадр
+    const f = Math.round(f0 + (f1 - f0) * p);
+    if (f !== cur) { cur = f; draw(); }
+    scenes.forEach((el, i) => {
+      const o = i === si ? fade(p, si === 0 && i === 0) : 0;
+      el.style.opacity = o; el.classList.toggle("on", o > 0.01);
+    });
+    // заголовок сжимается по ширине
+    const w = 151 - (151 - 62) * clamp(y / 60);
+    h1.forEach(s => s.style.setProperty("--w", w));
+    if (si === 1) {
+      const n = clamp(Math.floor((f - 41) / 90 * 6.4) + 1, 1, 6);
+      cnt.textContent = n; inks.forEach((e, k) => e.classList.toggle("lit", k < n));
+    }
+    if (si === 2) {
+      const insp = f >= 176;
+      s2e.textContent = insp ? "Шаг 3 из 4 - инспекция" : "Шаг 2 из 4 - склейка в рукав";
+      s2h.textContent = insp ? "Инспекция" : "Лента сворачивается в рукав";
+      s2p.textContent = insp ? "Кольцо света проходит по рукаву изнутри." : "Края сходятся, шов склеивается по всей длине.";
+    }
+    if (si === 3) gfill.style.width = clamp((f - 248) / 62) * 100 + "%";
+    if (si === 4) {
+      const k = PROD.findIndex(r => f <= r[3]);
+      if (k !== lastProd && k >= 0) {
+        lastProd = k; pn.textContent = (k + 1) + " / 6"; pt.textContent = PROD[k][0]; pf.textContent = PROD[k][1];
+        pdots.forEach((d, j) => d.classList.toggle("lit", j <= k));
+      }
+    }
+    if (si === 6) yrs.forEach((d, k) => d.classList.toggle("lit", f >= [566, 576, 586, 596][k]));
+    // заголовок заявки
+    const fr = document.getElementById("form").getBoundingClientRect();
+    const pc = clamp(1 - fr.top / innerHeight);
+    h2c.forEach(s => s.style.setProperty("--w", 151 - 89 * pc));
+    const docp = scrollY / (document.documentElement.scrollHeight - innerHeight);
+    bar.style.width = (docp * 100) + "%";
+    hud.textContent = (y >= total ? "Сцена 9 из 9 · Заявка" : `Сцена ${si + 1} из 9 · ${name}`) + ` · кадр ${cur}/${N}`;
+  }
+
+  // петля первого экрана: рулон крутится, пока не начали листать
+  let t0 = performance.now();
+  let lastY = -1;
+  function idle(now) {
+    if (scrollY !== lastY) { lastY = scrollY; update(); }
+    if (scrollY < 4 && innerHeight) {
+      const f = 1 + Math.floor(((now - t0) / 1000 * 12) % 40);
+      if (f !== cur) { cur = f; draw(); }
+    }
+    requestAnimationFrame(idle);
+  }
+
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduce && window.Lenis) {
+    const lenis = new Lenis({ lerp: 0.09 });
+    const raf = t => { lenis.raf(t); requestAnimationFrame(raf); }; requestAnimationFrame(raf);
+    document.getElementById("go").addEventListener("click", e => { e.preventDefault(); lenis.scrollTo(innerHeight * 1.2); });
+  }
+  addEventListener("scroll", update, { passive: true });
+  addEventListener("resize", () => { size(); update(); });
+  size(); pump(); update(); if (!reduce) requestAnimationFrame(idle);
+
+  document.getElementById("f").addEventListener("submit", e => { e.preventDefault(); e.currentTarget.classList.add("sent"); });
+})();
+</script>
+</body>
+</html>
