@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Тема Флекс - проба сцен 2-4</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../media/mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,200..800&family=Onest:wght@300;400;500;600&display=swap">
+<style>
+:root{--bg:#f5eee5;--ink:#1d1a17;--muted:#6d645b;--line:rgba(29,26,23,.12);--or:#ee7d1c;--glass:rgba(250,246,241,.62);
+  --f-d:"Roboto Flex",system-ui,sans-serif;--f-b:"Onest",system-ui,sans-serif;--pad:clamp(16px,4vw,64px)}
+*{box-sizing:border-box}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 var(--f-b);-webkit-font-smoothing:antialiased}
+h1,h2{margin:0;font-family:var(--f-d);font-weight:400;letter-spacing:-.02em;line-height:1.02}
+p{margin:0}
+a{color:inherit}
+.nav{position:fixed;inset:0 0 auto;z-index:50;display:flex;align-items:center;gap:20px;padding:14px var(--pad);background:var(--glass);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);box-shadow:0 1px 0 var(--line)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:600 18px var(--f-d);font-variation-settings:"wdth" 82}
+.logo img{width:28px;height:28px}
+.tag{margin-left:auto;font-size:13px;color:var(--muted)}
+.tag b{color:var(--or);font-weight:500}
+.intro{min-height:70svh;display:grid;align-content:center;padding:110px var(--pad) 40px;max-width:900px}
+.intro h1{font-size:clamp(34px,min(4.6vw,9svh),72px)}
+.intro p{margin-top:18px;color:var(--muted);max-width:620px}
+.intro .hint{margin-top:26px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--or)}
+.story{position:relative}
+.stage{position:sticky;top:0;height:100svh;overflow:hidden}
+#cv{position:absolute;inset:0;width:100%;height:100%}
+.copy{position:absolute;left:var(--pad);top:54%;transform:translateY(-50%);width:min(36vw,520px);z-index:2}
+.scene{position:absolute;inset:0 auto auto 0;width:100%;opacity:0;transform:translateY(-50%)}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--or);font-weight:500;margin-bottom:16px}
+.h{font-size:clamp(34px,min(4.6vw,9svh),72px)}
+.lead{margin-top:20px;color:var(--muted);max-width:420px}
+.facts{margin-top:22px;display:grid;gap:10px}
+.facts div{display:flex;gap:14px;align-items:baseline}
+.facts b{font:500 22px var(--f-d);min-width:64px}
+.inset{position:fixed;right:var(--pad);bottom:58px;z-index:40;width:clamp(150px,16vw,240px);border-radius:12px;overflow:hidden;box-shadow:0 0 0 1px var(--line),0 10px 30px rgba(0,0,0,.08);background:#fff}
+.inset canvas{display:block;width:100%;aspect-ratio:16/9}
+.inset span{position:absolute;left:8px;top:6px;font-size:11px;color:var(--muted);background:rgba(255,255,255,.8);padding:2px 7px;border-radius:999px}
+.hud{position:fixed;right:var(--pad);bottom:18px;z-index:40;font-size:12px;color:var(--muted);background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:7px 12px;border-radius:999px;box-shadow:0 0 0 1px var(--line);font-variant-numeric:tabular-nums}
+.outro{padding:20svh var(--pad);max-width:900px}
+.outro p{margin-top:14px;color:var(--muted)}
+@media (max-width:860px){
+  .copy{top:auto;bottom:max(70px,9svh);transform:none;width:auto;right:var(--pad)}
+  .scene{transform:none;top:auto;bottom:0}
+  .h{font-size:clamp(28px,8vw,40px)}
+  .lead{display:none}
+  .stage::after{content:"";position:absolute;inset:auto 0 0;height:50%;background:linear-gradient(to top,var(--bg) 50%,rgba(245,238,229,0));z-index:1;pointer-events:none}
+  .inset{top:70px;bottom:auto;left:var(--pad);right:auto;width:110px}
+  .tag{display:none}
+}
+</style>
+</head>
+<body>
+<header class="nav">
+  <a class="logo" href="../"><img src="../../media/mark.png" alt="">Тема Флекс</a>
+  <span class="tag"><b>Проба</b> - конец сцены 2 → сцена 3 → начало сцены 4, фотореализм по 3D</span>
+</header>
+<main>
+<section class="intro">
+  <div class="eyebrow">Проба качества</div>
+  <h1>Выход из рукава, усадка, проезд к колпачку</h1>
+  <p>Четыре ключевых кадра сняты в 3D и переведены в фото в Higgsfield, между ними - три перехода Kling. Справа внизу тот же момент из серого аниматика. Смотрим на качество картинки и на два стыка между роликами.</p>
+  <div class="hint">Листайте вниз</div>
+</section>
+<section class="story" id="story">
+  <div class="stage">
+    <canvas id="cv" aria-hidden="true"></canvas>
+    <div class="copy">
+      <div class="scene"><div class="eyebrow">Шаг 3 из 4 - инспекция</div><h2 class="h">Рукав готов</h2><p class="lead">Камера выходит из рукава. Отрезанный рукав надевается на бутылку.</p></div>
+      <div class="scene"><div class="eyebrow">Усадка</div><h2 class="h">Садится точно по форме</h2><div class="facts"><div><b>PVC</b>усадка 50-53 %</div><div><b>PET</b>усадка 70-75 %</div></div></div>
+      <div class="scene"><div class="eyebrow">2 / 6</div><h2 class="h">Колпачки</h2><p class="lead">ПВХ 30-40 мкм, открытый и закрытый верх. Образцы по запросу.</p></div>
+    </div>
+  </div>
+</section>
+<section class="outro">
+  <div class="eyebrow">Что проверяем</div>
+  <h2 class="h">Стыки: на 33 % и 66 % прокрутки</h2>
+  <p>Если на стыках заметен рывок или скачок картинки - это та самая проблема «обрезаний», которую решаем до съёмки всей главной.</p>
+</section>
+</main>
+<div class="inset"><canvas id="cg" width="320" height="180"></canvas><span>3D-аниматик</span></div>
+<div class="hud" id="hud"></div>
+<script src="frames/n.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(() => {
+  const N = window.PROBE_N || 360;
+  // сцены: [длина vh, кадр от, кадр до, серый от, серый до]
+  const S = [[150, 1, N / 3, 200, 242], [250, N / 3, 2 * N / 3, 242, 312], [200, 2 * N / 3, N, 312, 380]];
+  const total = S.reduce((a, s) => a + s[0], 0);
+  const story = document.getElementById("story");
+  story.style.height = (total + 100) + "svh";
+  const cv = document.getElementById("cv"), ctx = cv.getContext("2d");
+  const cg = document.getElementById("cg"), gx = cg.getContext("2d");
+  const imgs = [], grey = {};
+  const load = (i) => new Promise(r => { const im = new Image(); im.onload = () => { imgs[i] = im; r(); }; im.onerror = r; im.src = "frames/p" + String(i).padStart(4, "0") + ".jpg"; });
+  (async () => { const order = []; for (const st of [6, 3, 1]) for (let i = 1; i <= N; i += st) if (!order.includes(i)) order.push(i);
+    for (let k = 0; k < order.length; k += 8) { await Promise.all(order.slice(k, k + 8).map(load)); draw(); } })();
+  const greyImg = (f) => { if (!grey[f]) { const im = new Image(); im.onload = drawGrey; im.src = "../frames/f" + String(f).padStart(4, "0") + ".jpg"; grey[f] = im; } return grey[f]; };
+  let cur = 1, gcur = 200;
+  const mobile = () => innerWidth <= 860;
+  function nearest(f) { for (let k = 0; k < 30; k++) { if (imgs[f - k]) return imgs[f - k]; if (imgs[f + k]) return imgs[f + k]; } return null; }
+  function size() { const d = Math.min(devicePixelRatio || 1, 2); cv.width = innerWidth * d; cv.height = innerHeight * d; draw(); }
+  function draw() {
+    const im = nearest(cur); if (!im) return;
+    const W = cv.width, H = cv.height, iw = im.naturalWidth, ih = im.naturalHeight;
+    ctx.fillStyle = "#f5eee5"; ctx.fillRect(0, 0, W, H);
+    let sc, x, y;
+    if (mobile()) { sc = (H * 0.62) / ih; x = W / 2 - iw * sc * 0.62; y = H * 0.02; }
+    else if (W / H > iw / ih) { sc = H * 0.86 / ih; x = W - iw * sc - W * 0.01; y = H * 0.11; } // широкий экран: ниже шапки, к правому краю
+    else { sc = W / iw * 1.08; x = W - iw * sc; y = (H - ih * sc) / 2; }
+    ctx.drawImage(im, x, y, iw * sc, ih * sc);
+    { const dw = iw * sc, dh = ih * sc, fe = Math.min(dw, dh) * 0.08;
+      const edge = (x0, y0, x1, y1, rx, ry, rw, rh) => { const g = ctx.createLinearGradient(x0, y0, x1, y1);
+        g.addColorStop(0, "rgba(245,238,229,1)"); g.addColorStop(1, "rgba(245,238,229,0)"); ctx.fillStyle = g; ctx.fillRect(rx, ry, rw, rh); };
+      edge(0, y, 0, y + fe, x, y - 1, dw, fe + 1); edge(0, y + dh, 0, y + dh - fe, x, y + dh - fe, dw, fe + 1);
+      edge(x + dw, 0, x + dw - fe, 0, x + dw - fe, y, fe + 1, dh); edge(x, 0, x + fe, 0, x - 1, y, fe + 1, dh);
+      ctx.fillStyle = "#f5eee5"; ctx.fillRect(0, 0, W, Math.max(0, y)); ctx.fillRect(0, y + dh, W, H); ctx.fillRect(x + dw, 0, W, H); }
+    if (!mobile()) {
+      const g = ctx.createLinearGradient(W * 0.32, 0, W * 0.5, 0);
+      g.addColorStop(0, "rgba(245,238,229,1)"); g.addColorStop(1, "rgba(245,238,229,0)");
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W * 0.5, H); ctx.fillStyle = "#f5eee5"; ctx.fillRect(0, 0, W * 0.32, H);
+    }
+  }
+  function drawGrey() { const im = grey[gcur]; if (im && im.complete && im.naturalWidth) gx.drawImage(im, 0, 0, 320, 180); }
+  const scenes = [...document.querySelectorAll(".scene")], hud = document.getElementById("hud");
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  function update() {
+    const vh = innerHeight / 100, y = clamp(-story.getBoundingClientRect().top / vh, 0, total);
+    let acc = 0, si = 0, p = 0;
+    for (let i = 0; i < S.length; i++) { if (y <= acc + S[i][0] || i === S.length - 1) { si = i; p = clamp((y - acc) / S[i][0]); break; } acc += S[i][0]; }
+    const [, f0, f1, g0, g1] = S[si];
+    const f = Math.max(1, Math.round(f0 + (f1 - f0) * p));
+    if (f !== cur) { cur = f; draw(); }
+    const g = Math.round(g0 + (g1 - g0) * p); if (g !== gcur) { gcur = g; greyImg(g); drawGrey(); }
+    scenes.forEach((el, i) => el.style.opacity = i === si ? Math.min(clamp(p / 0.12), clamp((1 - p) / 0.12)) : 0);
+    hud.textContent = `Ролик ${si + 1} из 3 · кадр ${cur}/${N}`;
+  }
+  let lastY = -1; const loop = () => { if (scrollY !== lastY) { lastY = scrollY; update(); } requestAnimationFrame(loop); };
+  if (window.Lenis && !matchMedia("(prefers-reduced-motion: reduce)").matches) { const l = new Lenis({ lerp: 0.09 }); const r = t => { l.raf(t); requestAnimationFrame(r); }; requestAnimationFrame(r); }
+  addEventListener("scroll", update, { passive: true }); addEventListener("resize", () => { size(); update(); });
+  size(); update(); greyImg(200); requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

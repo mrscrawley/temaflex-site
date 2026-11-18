@@ -503,6 +503,21 @@ for fr, cl, tl in CAM:
 for fr, lens in [(1, 35), (176, 35), (184, 18), (198, 18), (208, 35), (428, 35), (440, 50), (446, 35)]:
     cam_d.lens = lens; cam_d.keyframe_insert("lens", frame=fr)
 
+# ---------- после выхода из рукава лента и труба больше не нужны ----------
+for n in ["tube", "seam", "strip", "inspect_ring"] + [o.name for o in bpy.data.objects if o.name.startswith("press") or o.name.startswith("pan")]:
+    o = bpy.data.objects.get(n)
+    if o is None:
+        continue
+    o.hide_render = False; o.keyframe_insert("hide_render", frame=232)
+    o.hide_render = True; o.keyframe_insert("hide_render", frame=233)
+    o.hide_render = False
+
+# текстура печати из файла, если есть (print.png рядом со скриптом)
+import os
+_pp = os.path.join(os.path.dirname(bpy.data.filepath) if bpy.data.filepath else os.getcwd(), "print.png")
+if os.path.exists(_pp):
+    tex.image = bpy.data.images.load(_pp)
+
 # ---------- прячем всё, кроме рулона R2, перед финальным ракурсом ----------
 def in_r2(o):
     while o:
@@ -513,7 +528,7 @@ def in_r2(o):
 for o in list(bpy.data.objects):
     if o.type != "MESH" or in_r2(o):
         continue
-    o.hide_render = False; o.keyframe_insert("hide_render", frame=606)
+    o.hide_render = False; o.keyframe_insert("hide_render", frame=1)
     o.hide_render = True; o.keyframe_insert("hide_render", frame=607)
     o.hide_render = False
 

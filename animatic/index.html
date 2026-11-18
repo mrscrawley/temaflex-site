@@ -238,10 +238,16 @@ footer{padding:30px var(--pad);font-size:13px;color:var(--muted);display:flex;ju
     if (mobile()) { // кадр по высоте верхней части, объект в центре
       sc = (H * 0.62) / ih; x = W / 2 - iw * sc * 0.62; y = H * 0.02;
     } else {
-      if (W / H > iw / ih) { sc = H / ih; x = W - iw * sc; y = 0; } // широкий экран: по высоте, к правому краю
+      if (W / H > iw / ih) { sc = H * 0.86 / ih; x = W - iw * sc - W * 0.01; y = H * 0.11; } // широкий экран: ниже шапки, к правому краю
       else { sc = W / iw * 1.08; x = W - iw * sc; y = (H - ih * sc) / 2; }
     }
     ctx.drawImage(im, x, y, iw * sc, ih * sc);
+    { const dw = iw * sc, dh = ih * sc, fe = Math.min(dw, dh) * 0.08;
+      const edge = (x0, y0, x1, y1, rx, ry, rw, rh) => { const g = ctx.createLinearGradient(x0, y0, x1, y1);
+        g.addColorStop(0, "rgba(245,238,229,1)"); g.addColorStop(1, "rgba(245,238,229,0)"); ctx.fillStyle = g; ctx.fillRect(rx, ry, rw, rh); };
+      edge(0, y, 0, y + fe, x, y - 1, dw, fe + 1); edge(0, y + dh, 0, y + dh - fe, x, y + dh - fe, dw, fe + 1);
+      edge(x + dw, 0, x + dw - fe, 0, x + dw - fe, y, fe + 1, dh); edge(x, 0, x + fe, 0, x - 1, y, fe + 1, dh);
+      ctx.fillStyle = "#f5eee5"; ctx.fillRect(0, 0, W, Math.max(0, y)); ctx.fillRect(0, y + dh, W, H); ctx.fillRect(x + dw, 0, W, H); }
     if (!mobile()) { // кадр не заходит на колонку текста: левый край растворяется в фоне
       const g = ctx.createLinearGradient(W * 0.34, 0, W * 0.52, 0);
       g.addColorStop(0, "rgba(245,238,229,1)"); g.addColorStop(1, "rgba(245,238,229,0)");
